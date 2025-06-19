@@ -63,6 +63,41 @@ button:focus-visible {
   border-radius: 20px;
 }
 
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 800px;
+  height: 600px;
+  margin: auto;
+  padding: 10px;
+}
+
+.game_score {
+  font-size: 25px;
+  padding: 30px;
+}
+
+.timer {
+  font-size: 25px;
+  padding: 30px;
+}
+
+.card {
+  border: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.card_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -74,4 +109,5 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  
 }
