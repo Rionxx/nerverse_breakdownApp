@@ -59,6 +59,14 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 } */
 
+.button_start {
+  display: flex;
+  border: 1px solid #333;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+} 
+
 .icon_image {
   border-radius: 20px;
 }
