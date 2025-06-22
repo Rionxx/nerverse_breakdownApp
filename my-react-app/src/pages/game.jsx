@@ -1,14 +1,34 @@
-import { React, useState, useEffect } from "react";
-import card from'../images/card1.jpeg'
+import { React, useState, useEffect, startTransition } from "react";
 import '../index.css'
 
 function Game() {
   const [time, setTime] = useState(0)
   const cardData = [
-    {id: 1, image: card},
-    {id: 2, image: card},
+    '../images/card1.jpeg',
+    '../images/romaco2.png',
+    '../images/card1.jpeg',
+    '../images/card1.jpeg',
+    '../images/card1.jpeg',
+    '../images/card1.jpeg',
+    '../images/card1.jpeg',
+    '../images/card1.jpeg',
+    '../images/card1.jpeg',
+    '../images/card1.jpeg',
+    '../images/card1.jpeg',
+    '../images/card1.jpeg',
   ]
 
+  const handleAddItems = () => {
+    //非同期で重い状態更新をラップ
+    startTransition(() => {
+      const newItems = Array(1000).fill(0).map((_, i) => i)
+      setItems(newItems)
+      // ここにアイテムを追加するロジックを記述
+      console.log("アイテムが追加されました");
+    })
+  }
+
+  //1秒ごとの時間を更新する
   useEffect(() => {
     const timer = setInterval(() => {
       setTime((prevTime) => prevTime + 1)
@@ -16,7 +36,6 @@ function Game() {
 
     return () => clearInterval(timer)
   }, [])
-
   const minutes = Math.floor(time / 60)
     .toString()
     .padStart(2, '0')
@@ -34,10 +53,12 @@ function Game() {
         スコア：{score}
       </span>
       <div className="board">
-        {cardData.map((card) => {
-          <div className="card" key={card.id}>
-            <img src={card.image} alt={`card-${card.id}`} className="card_img" />
+        {cardData.map((src, index) => {
+          return (
+            <div className="card" key={index}>
+            <img src={src} alt={`card-${index}`} className="card_img" />
           </div>
+          )
         })}
       </div>
     </div>
