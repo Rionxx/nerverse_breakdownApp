@@ -16,7 +16,7 @@ function Home() {
         <img className="icon_image" src={homeIcon} alt="ホームアイコン" />
       </div>
       <br />
-      <div className="card">
+      <div className="start_button">
         <button onClick={redirect}>
           ゲームスタート
         </button>
