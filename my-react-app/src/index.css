@@ -1,11 +1,13 @@
 :root {
+  margin: auto;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #FFFFFF;
+  text-align: center;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,11 +25,14 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  background-image: url("/images/background.jpeg");
+  background-size: cover;
+  margin: auto;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  justify-content: center;
 }
 
 h1 {
@@ -43,15 +48,62 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
-button:focus,
+
+/* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+} */
+
+.button_start {
+  display: flex;
+  border: 1px solid #333;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+} 
+
+.icon_image {
+  border-radius: 20px;
+}
+
+.board {
+  display: grid;
+  border: 1px solid #333;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 800px;
+  height: 550px;
+  margin: auto;
+}
+
+.game_score {
+  font-size: 25px;
+  padding: 30px;
+}
+
+.timer {
+  font-size: 25px;
+  padding: 30px;
+}
+
+.card {
+  display: flex;
+  border: 1px solid #333;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+} 
+
+.card_img {
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -65,4 +117,5 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  
 }
