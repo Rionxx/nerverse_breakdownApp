@@ -34,7 +34,10 @@ function Game() {
    *   - The card object should have a src property that points to the image location
    *   - The card object should have a flipped property that is set to false
    */
+
+  //カードの初期状態を生成する関数
   const initCards = () => {
+    //カードの画像を2枚ずつ生成し、シャッフルする
     const doubled = cardData.flatMap((image) => [
       {src: `/images/${image}`, flipped: false, matched: false},
       {src: `/images/${image}`, flipped: false, matched: false}
@@ -45,40 +48,8 @@ function Game() {
   const [time, setTime] = useState(0)
   const [cards, setCards] = useState(initCards)
   const [flippedIndexes, setFlippedIndexes] = useState([])
-  //const [showhCoutns, setShownCounts] = useState({})
 
-  //ランダムに画像を1つ返す関数
-  // const getRandomImage = () => {
-  //   //画像の表示カウントを取得し、2枚以上は同じ画像を表示させない
-  //   const available = cardData.filter(
-  //     (image) => (showhCoutns[image] || 0) < 2
-  //   )
-  //   if (available.length === 0) return null
-  //   const chosen = available[Math.floor(Math.random() * available.length)]
-  //   return chosen
-  // }
-
-  // //カードクリック時の処理
-  // const handleCardClick = (index) => {
-  //   setCards((prevCards) => {
-  //     if (prevCards[index].flipped) return prevCards //既にめくれているカードは無視
-
-  //     const image = getRandomImage()
-  //     if (!image) return prevCards // 画像が取得できない場合は何もしない
-
-  //     const newCards = [...prevCards]
-  //     newCards[index] = {
-  //       flipped: true,
-  //       src: `/images/${image}`
-  //     }
-  //     setShownCounts((prev) => ({
-  //       ...prev,
-  //       [image]: (prev[image] || 0) + 1
-  //     }))
-  //     return newCards
-  //   })
-  // }
-
+  // クリック時のアクション
   const handleCardClick = (index) => {
     if (cards[index].flipped || flippedIndexes.length === 2) return //既にめくれているカードは無視
 
@@ -88,9 +59,9 @@ function Game() {
 
     setCards(newCards)
     setFlippedIndexes(newFlipped)
-
     if (newFlipped.length === 2) {
       const [i1, i2] = newFlipped
+      //カードが一致するか確認
       if (newCards[i1].src === newCards[i2].src) {
         setTimeout(() => {
           const updated = [...newCards]
@@ -99,12 +70,14 @@ function Game() {
           setCards(updated)
           setFlippedIndexes([])
         }, 800)
+      //カードが一致しない場合は、1秒後にカードを戻す
       } else {
         setTimeout(() => {
-          newCards[i1].matched = false
-          newCards[i2].matched = false
-          setCards([...newCards])
-          setFlippedIndexes([])
+          const updated = [...newCards];
+          updated[i1].flipped = false;
+          updated[i2].flipped = false;
+          setCards(updated);
+          setFlippedIndexes([]);
         }, 1000)
       }
     }
