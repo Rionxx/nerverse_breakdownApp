@@ -1,11 +1,14 @@
 import React, { useState } from "react"
 import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
-import homeIcon from'../images/home_icon.jpeg'
+import homeIcon from'/images/home_icon.jpeg'
 import '../index.css'
 
 function Home() {
   const navigate = useNavigate()
   const redirect = () => {
+    const bgm = new Audio('/sounds/start_sound.mp3')
+    bgm.volume = 0.5
+    bgm.play()
     navigate('/game')
   }
 

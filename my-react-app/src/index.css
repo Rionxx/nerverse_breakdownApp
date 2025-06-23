@@ -25,7 +25,7 @@ a:hover {
 }
 
 body {
-  background-image: url("./images/background.jpeg");
+  background-image: url("/images/background.jpeg");
   background-size: cover;
   margin: auto;
   display: flex;
@@ -58,13 +58,15 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
-button:focus,
+
+/* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
+} */
 
 .button_start {
   display: flex;
@@ -78,6 +80,41 @@ button:focus-visible {
   border-radius: 20px;
 }
 
+.board {
+  display: grid;
+  border: 1px solid #333;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 800px;
+  height: 550px;
+  margin: auto;
+}
+
+.game_score {
+  font-size: 25px;
+  padding: 30px;
+}
+
+.timer {
+  font-size: 25px;
+  padding: 30px;
+}
+
+.card {
+  display: flex;
+  border: 1px solid #333;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+} 
+
+.card_img {
+  width: 60%;
+  height: 60%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -89,4 +126,5 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  
 }
