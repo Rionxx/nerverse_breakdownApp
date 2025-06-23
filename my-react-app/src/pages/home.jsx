@@ -6,6 +6,9 @@ import '../index.css'
 function Home() {
   const navigate = useNavigate()
   const redirect = () => {
+    const bgm = new Audio('/sounds/start_sound.mp3')
+    bgm.volume = 0.5
+    bgm.play()
     navigate('/game')
   }
 

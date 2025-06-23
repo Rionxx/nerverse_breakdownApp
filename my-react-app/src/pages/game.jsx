@@ -48,6 +48,9 @@ function Game() {
   const [time, setTime] = useState(0)
   const [cards, setCards] = useState(initCards)
   const [flippedIndexes, setFlippedIndexes] = useState([])
+  const bgm = new Audio('/sounds/game_sound.mp3')
+  const isMatchedSound = new Audio('/sounds/matched_sound.mp3')
+  const notMatchedSound = new Audio('/sounds/notmatched_sound.mp3')
 
   // クリック時のアクション
   const handleCardClick = (index) => {
@@ -63,7 +66,10 @@ function Game() {
       const [i1, i2] = newFlipped
       //カードが一致するか確認
       if (newCards[i1].src === newCards[i2].src) {
+        isMatchedSound.currentTime = 0 // 音声をリセット
+        isMatchedSound.volume = 0.8
         setTimeout(() => {
+          isMatchedSound.play()
           const updated = [...newCards]
           updated[i1].matched = true
           updated[i2].matched = true
@@ -72,12 +78,15 @@ function Game() {
         }, 800)
       //カードが一致しない場合は、1秒後にカードを戻す
       } else {
+        notMatchedSound.currentTime = 0 // 音声をリセット
+        notMatchedSound.volume = 0.8
         setTimeout(() => {
-          const updated = [...newCards];
-          updated[i1].flipped = false;
-          updated[i2].flipped = false;
-          setCards(updated);
-          setFlippedIndexes([]);
+          notMatchedSound.play()
+          const updated = [...newCards]
+          updated[i1].flipped = false
+          updated[i2].flipped = false
+          setCards(updated)
+          setFlippedIndexes([])
         }, 1000)
       }
     }
@@ -99,7 +108,18 @@ function Game() {
       setTime((prevTime) => prevTime + 1)
     }, 1000)
 
-    return () => clearInterval(timer)
+    bgm.loop = true
+    bgm.volume = 0.5 // 音量を調整
+    bgm.play().catch((error) => {
+      console.error("BGMの再生に失敗しました:", error)
+    })
+
+
+    return () => {
+      bgm.pause()
+      bgm.currentTime = 0 // BGMをリセット
+      clearInterval(timer)
+    }
   }, [])
   const minutes = Math.floor(time / 60)
     .toString()
