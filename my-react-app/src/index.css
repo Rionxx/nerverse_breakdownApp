@@ -51,6 +51,7 @@ button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
+  margin: 20px;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -102,6 +103,7 @@ button:focus-visible {
 
 .card {
   display: flex;
+  aspect-ratio: 0.7/0.7;
   border: 1px solid #333;
   justify-content: center;
   align-items: center;
@@ -109,11 +111,33 @@ button:focus-visible {
 } 
 
 .card_img {
-  width: 60%;
-  height: 60%;
+  width: 70%;
+  height: 70%;
   object-fit: cover;
   border-radius: 6px;
 }
+
+.score-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.score-modal {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 10px #000;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
