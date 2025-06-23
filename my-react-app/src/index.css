@@ -100,8 +100,8 @@ button:focus-visible {
 } 
 
 .card_img {
-  width: 50%;
-  height: 50%;
+  width: 60%;
+  height: 60%;
   object-fit: cover;
   border-radius: 6px;
 }
