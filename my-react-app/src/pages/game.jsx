@@ -1,4 +1,5 @@
 import React, { useState, useEffect, startTransition } from "react";
+import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
 import '../index.css'
 
 const cardData = [
@@ -48,46 +49,92 @@ function Game() {
   const [time, setTime] = useState(0)
   const [cards, setCards] = useState(initCards)
   const [flippedIndexes, setFlippedIndexes] = useState([])
+  const [showScore, setShowScore] = useState(false);
+  const [score, setScore] = useState(0);
+  const [finalTime, setFinalTime] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
   const bgm = new Audio('/sounds/game_sound.mp3')
   const isMatchedSound = new Audio('/sounds/matched_sound.mp3')
   const notMatchedSound = new Audio('/sounds/notmatched_sound.mp3')
+  const navigate = useNavigate()
+
+  const redirect = () => {
+    navigate('/')
+  }
+
+  useEffect(() => {
+    if (!isRunning) return;
+
+    const timer = setInterval(() => setTime((prev) => prev + 1), 1000);
+
+    return () => clearInterval(timer);
+  }, [isRunning]);
+
+  // ゲーム開始時：isRunningをtrueにする
+  useEffect(() => {
+    setCards(initCards());
+    setIsRunning(true);
+
+    bgm.loop = true;
+    bgm.volume = 0.5;
+    bgm.play().catch((error) => {
+      console.error("BGMの再生に失敗しました:", error);
+    });
+
+    return () => {
+      bgm.pause();
+      bgm.currentTime = 0;
+    };
+  }, []);
+
+  // ゲームクリア判定
+  useEffect(() => {
+    if (cards.length > 0 && cards.every((card) => card.matched)) {
+      setIsRunning(false); // ゲームが終了したらタイマーを停止
+      const totalSeconds = time;
+      const calculatedScore = Math.max(5000 - totalSeconds * 20, 0);
+      setFinalTime(totalSeconds);
+      setScore(calculatedScore);
+      setShowScore(true); // タイマーを停止
+    }
+  }, [cards, time]);
 
   // クリック時のアクション
   const handleCardClick = (index) => {
-    if (cards[index].flipped || flippedIndexes.length === 2) return //既にめくれているカードは無視
+    if (cards[index].flipped || flippedIndexes.length === 2) return; //既にめくれているカードは無視
 
-    const newCards = [...cards]
-    newCards[index].flipped = true //カードをめくる
-    const newFlipped = [...flippedIndexes, index]
+    const newCards = [...cards];
+    newCards[index].flipped = true; //カードをめくる
+    const newFlipped = [...flippedIndexes, index];
 
-    setCards(newCards)
-    setFlippedIndexes(newFlipped)
+    setCards(newCards);
+    setFlippedIndexes(newFlipped);
     if (newFlipped.length === 2) {
-      const [i1, i2] = newFlipped
+      const [i1, i2] = newFlipped;
       //カードが一致するか確認
       if (newCards[i1].src === newCards[i2].src) {
-        isMatchedSound.currentTime = 0 // 音声をリセット
-        isMatchedSound.volume = 0.8
+        isMatchedSound.currentTime = 0; // 音声をリセット
+        isMatchedSound.volume = 0.8;
         setTimeout(() => {
-          isMatchedSound.play()
-          const updated = [...newCards]
-          updated[i1].matched = true
-          updated[i2].matched = true
-          setCards(updated)
-          setFlippedIndexes([])
-        }, 800)
+          isMatchedSound.play();
+          const updated = [...newCards];
+          updated[i1].matched = true;
+          updated[i2].matched = true;
+          setCards(updated);
+          setFlippedIndexes([]);
+        }, 800);
       //カードが一致しない場合は、1秒後にカードを戻す
       } else {
-        notMatchedSound.currentTime = 0 // 音声をリセット
-        notMatchedSound.volume = 0.8
+        notMatchedSound.currentTime = 0; // 音声をリセット
+        notMatchedSound.volume = 0.8;
         setTimeout(() => {
-          notMatchedSound.play()
-          const updated = [...newCards]
-          updated[i1].flipped = false
-          updated[i2].flipped = false
-          setCards(updated)
-          setFlippedIndexes([])
-        }, 1000)
+          notMatchedSound.play();
+          const updated = [...newCards];
+          updated[i1].flipped = false;
+          updated[i2].flipped = false;
+          setCards(updated);
+          setFlippedIndexes([]);
+        }, 1000);
       }
     }
   }
@@ -95,47 +142,24 @@ function Game() {
   const handleAddItems = () => {
     //非同期で重い状態更新をラップ
     startTransition(() => {
-      const newItems = Array(1000).fill(0).map((_, i) => i)
-      setItems(newItems)
+      const newItems = Array(1000).fill(0).map((_, i) => i);
+      setItems(newItems);
       // ここにアイテムを追加するロジックを記述
       console.log("アイテムが追加されました");
     })
   }
 
-  //1秒ごとの時間を更新する
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime((prevTime) => prevTime + 1)
-    }, 1000)
-
-    bgm.loop = true
-    bgm.volume = 0.5 // 音量を調整
-    bgm.play().catch((error) => {
-      console.error("BGMの再生に失敗しました:", error)
-    })
-
-
-    return () => {
-      bgm.pause()
-      bgm.currentTime = 0 // BGMをリセット
-      clearInterval(timer)
-    }
-  }, [])
   const minutes = Math.floor(time / 60)
     .toString()
-    .padStart(2, '0')
-  const secs = (time % 60).toString().padStart(2, '0')
-  const score = 0
+    .padStart(2, '0');
+  const secs = (time % 60).toString().padStart(2, '0');
+  
 
   return (
     <div className="game">
-      <h2 className="card_count">残り枚数：{cards.length}</h2>
+      <h2 className="card_count">残り枚数：{cards.matched ? cards.length - 2 : cards.length}</h2>
       <span className="timer">
         タイマー：{minutes}:{secs}
-      </span>
-
-      <span className="game_score">
-        スコア：{score}
       </span>
       <div className="board">
         {cards.map((card, index) => {
@@ -148,6 +172,20 @@ function Game() {
           )
         })}
       </div>
+
+      {showScore && (
+        <div className="score-overlay">
+          <div className="score-modal">
+            <h2>ゲームクリア！</h2>
+            <p>タイム：{finalTime} 秒</p>
+            <p>スコア：{score} 点</p>
+            <button onClick={() => window.location.reload()}>もう一度プレイ</button>
+            <button onClick={redirect}>
+              ホームへ戻る
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
