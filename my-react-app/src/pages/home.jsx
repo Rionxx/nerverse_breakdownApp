@@ -27,7 +27,7 @@ function Home() {
         <button onClick={redirect}>
           ゲームスタート
         </button>
-        </div>
+      </div>
     </div>
   )
 }
