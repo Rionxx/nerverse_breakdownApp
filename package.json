@@ -11,7 +11,7 @@
     "test": "jest",
     "deploy": "npm run build && gh-pages -d build"
   },
-  "homepage": "https://rionxx.github.io/nerverse_breakdownApp/",
+  "homepage": "https://Rionxx.github.io/nerverse_breakdownApp/",
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
