@@ -25,6 +25,19 @@ const shuffle = (array) => {
   return copied
 }
 
+// Card コンポーネントを独立させる
+function Card({ card, index, onClick }) {
+  return (
+    <div className="card" onClick={() => onClick(index)}>
+      <img
+        src={card.flipped || card.matched ? card.src : CARD_BACK_IMAGE} // CARD_BACK_IMAGEを使用
+        alt={`card-${index}`}
+        className="card_img"
+      />
+    </div>
+  );
+}
+
 
 function Game() {
   /**
