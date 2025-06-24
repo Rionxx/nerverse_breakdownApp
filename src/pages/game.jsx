@@ -54,8 +54,8 @@ function Game() {
   const initCards = () => {
     //カードの画像を2枚ずつ生成し、シャッフルする
     const doubled = cardData.flatMap((image) => [
-      {src: `/images/${image}`, flipped: false, matched: false},
-      {src: `/images/${image}`, flipped: false, matched: false}
+      {src: `${import.meta.env.BASE_URL}/images/${image}`, flipped: false, matched: false},
+      {src: `${import.meta.env.BASE_URL}/images/${image}`, flipped: false, matched: false}
     ])
     return shuffle(doubled)
   }
@@ -68,9 +68,9 @@ function Game() {
   const [missCount, setMissCount] = useState(0);
   const [finalTime, setFinalTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const bgm = new Audio('/sounds/game_sound.mp3')
-  const isMatchedSound = new Audio('/sounds/matched_sound.mp3')
-  const notMatchedSound = new Audio('/sounds/notmatched_sound.mp3')
+  const bgm = new Audio(`${import.meta.env.BASE_URL}/sounds/game_sound.mp3`)
+  const isMatchedSound = new Audio(`${import.meta.env.BASE_URL}/sounds/matched_sound.mp3`)
+  const notMatchedSound = new Audio(`${import.meta.env.BASE_URL}/sounds/notmatched_sound.mp3`)
   const navigate = useNavigate()
 
   const redirect = () => {
@@ -185,7 +185,7 @@ function Game() {
         {cards.map((card, index) => {
           return (
             <div className="card" key={index} onClick={() => handleCardClick(index)}>
-            <img src={card.flipped  || card.matched ? card.src : "/images/card0.jpeg"} 
+            <img src={card.flipped  || card.matched ? card.src : `${import.meta.env.BASE_URL}/images/card0.jpeg`} 
             alt={`card-${index}`} 
             className="card_img" />
           </div>
