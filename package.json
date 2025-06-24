@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://rionxx.github.io/nerverse_breakdownApp/",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
@@ -12,6 +11,7 @@
     "test": "jest",
     "deploy": "npm run build && gh-pages -d build"
   },
+  "homepage": "https://rionxx.github.io/nerverse_breakdownApp/",
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
