@@ -25,6 +25,7 @@ const shuffle = (array) => {
   return copied
 }
 
+
 function Game() {
   /**
    * Generate the initial state of the cards
@@ -51,6 +52,7 @@ function Game() {
   const [flippedIndexes, setFlippedIndexes] = useState([])
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
+  const [missCount, setMissCount] = useState(0);
   const [finalTime, setFinalTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const bgm = new Audio('/sounds/game_sound.mp3')
@@ -92,7 +94,9 @@ function Game() {
     if (cards.length > 0 && cards.every((card) => card.matched)) {
       setIsRunning(false); // ゲームが終了したらタイマーを停止
       const totalSeconds = time;
-      const calculatedScore = Math.max(5000 - totalSeconds * 20, 0);
+      const penaltyByMiss = missCount * 50;
+      const penaltyByTime = time * 20;
+      const calculatedScore = Math.max(5000 - penaltyByMiss - penaltyByTime, 0);
       setFinalTime(totalSeconds);
       setScore(calculatedScore);
       setShowScore(true); // タイマーを停止
@@ -133,7 +137,10 @@ function Game() {
           updated[i1].flipped = false;
           updated[i2].flipped = false;
           setCards(updated);
-          setFlippedIndexes([]);
+          setFlippedIndexes([]); 
+          setMissCount((prev) => prev + 1);
+          setScore((prev) => Math.max(prev - 50 * missCount, 0));
+          console.log(`外した回数: ${missCount + 1} 回`);
         }, 1000);
       }
     }
@@ -157,7 +164,7 @@ function Game() {
 
   return (
     <div className="game">
-      <h2 className="card_count">残り枚数：{cards.matched ? cards.length - 2 : cards.length}</h2>
+      <h2 className="card_count">残り枚数：{cards.filter((card) => !card.matched).length  }</h2>
       <span className="timer">
         タイマー：{minutes}:{secs}
       </span>
@@ -179,6 +186,7 @@ function Game() {
             <h2>ゲームクリア！</h2>
             <p>タイム：{finalTime} 秒</p>
             <p>スコア：{score} 点</p>
+            <p>外した回数：{missCount} 回</p>
             <button onClick={() => window.location.reload()}>もう一度プレイ</button>
             <button onClick={redirect}>
               ホームへ戻る
