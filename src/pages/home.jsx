@@ -23,10 +23,23 @@ function Home() {
         <img className="icon_image" src={homeIcon} alt="ホームアイコン" />
       </div>
       <br />
-      <div className="start_button">
-        <button onClick={redirect}>
-          ゲームスタート
-        </button>
+
+      <div className="buttons">
+        <span className="start_button1">
+          <button onClick={redirect}>
+            下級マゾ豚
+          </button>
+        </span>
+        <span className="start_button2">
+          <button onClick={redirect} style={{ backgroundColor: "orange" }}>
+            中級マゾ豚
+          </button>
+        </span>
+        <span className="start_button3">
+          <button onClick={redirect} style={{ backgroundColor: "red" }}>
+            上級マゾ豚
+          </button>
+        </span>
       </div>
     </div>
   )
