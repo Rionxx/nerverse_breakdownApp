@@ -17,7 +17,7 @@ function Home() {
       <h1 className="title">
         <span style={{ color: "blue" }}>ロマ子</span>と
         <span style={{ color: "red" }}>マゾ豚</span>の
-        <span style={{ color: "lime" }}>神経衰弱！？</span>
+        <span style={{ color: "lime" }}>神経衰弱！？</span>(ベータ版)
         </h1>
       <div className="home_icon">
         <img className="icon_image" src={homeIcon} alt="ホームアイコン" />

@@ -68,7 +68,7 @@ function Game() {
   const [missCount, setMissCount] = useState(0);
   const [finalTime, setFinalTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const bgm = new Audio(`${import.meta.env.BASE_URL}/sounds/game_sound.mp3`)
+  const bgm = new Audio(`${import.meta.env.BASE_URL}/sounds/game_sound2.mp3`)
   const isMatchedSound = new Audio(`${import.meta.env.BASE_URL}/sounds/matched_sound.mp3`)
   const notMatchedSound = new Audio(`${import.meta.env.BASE_URL}/sounds/notmatched_sound.mp3`)
   const navigate = useNavigate()
@@ -91,7 +91,7 @@ function Game() {
     setIsRunning(true);
 
     bgm.loop = true;
-    bgm.volume = 0.5;
+    bgm.volume = 0.2;
     bgm.play().catch((error) => {
       console.error("BGMの再生に失敗しました:", error);
     });
