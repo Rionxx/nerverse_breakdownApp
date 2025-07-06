@@ -1,2 +1,0 @@
-# nerverse_breakdownApp
-イラスト画像を使用した神経衰弱アプリを作ります。
