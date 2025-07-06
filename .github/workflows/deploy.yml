@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # 対象ブランチプッシュ時に実行されます
   push:
-    branches: ['beta']
+    branches: ['vertification']
 
   # Actions タブから手動でワークフローを実行できるようにします
   workflow_dispatch:
