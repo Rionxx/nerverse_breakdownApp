@@ -31,7 +31,7 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 110vh;
   justify-content: center;
 }
 
@@ -83,6 +83,26 @@ button:hover {
   border: 2px solid pink;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  width: 800px;
+  height: 550px;
+  margin: 30;
+}
+
+.board1 {
+  display: grid;
+  border: 2px solid pink;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 800px;
+  height: 500px;
+  margin: 30;
+}
+
+.board2 {
+  display: grid;
+  border: 2px solid pink;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   width: 800px;
   height: 550px;
   margin: 30;

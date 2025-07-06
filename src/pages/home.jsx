@@ -5,11 +5,11 @@ import '../index.css'
 
 function Home() {
   const navigate = useNavigate()
-  const redirect = () => {
+  const redirect = (destination) => {
     const bgm = new Audio('/sounds/start_sound.mp3')
     bgm.volume = 0.5
     bgm.play()
-    navigate('/game')
+    navigate(destination)
   }
 
   return (
@@ -26,17 +26,17 @@ function Home() {
 
       <div className="buttons">
         <span className="start_button1">
-          <button onClick={redirect}>
+          <button onClick={() => redirect('/game')} style={{ backgroundColor: "green" }}>
             下級マゾ豚
           </button>
         </span>
         <span className="start_button2">
-          <button onClick={redirect} style={{ backgroundColor: "orange" }}>
+          <button onClick={() => redirect('/gameintermediate')} style={{ backgroundColor: "orange" }}>
             中級マゾ豚
           </button>
         </span>
         <span className="start_button3">
-          <button onClick={redirect} style={{ backgroundColor: "red" }}>
+          <button onClick={() => redirect('/gameadvanced')} style={{ backgroundColor: "red" }}>
             上級マゾ豚
           </button>
         </span>
