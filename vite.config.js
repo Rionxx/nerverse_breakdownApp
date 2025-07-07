@@ -6,5 +6,5 @@ export default defineConfig({
   server: {
     host: true,
   },plugins: [react()],
-  base: '/nerverse_breakdownApp-vertification/', // GitHub Pagesのリポジトリ名に合わせて変更
+  base: '/nerverse_breakdownApp/',
 })
